@@ -1,0 +1,19 @@
+{
+  "name": "syntax-scope-inspector",
+  "main": "./lib/syntax-scope-inspector",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "syntax-scope-inspector:toggle"
+  },
+  "repository": "zertosh/syntax-scope-inspector",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  },
+  "private": true
+}

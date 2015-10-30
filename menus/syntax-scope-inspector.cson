@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle syntax-scope-inspector'
+      'command': 'syntax-scope-inspector:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'syntax-scope-inspector'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'syntax-scope-inspector:toggle'
+        }
+      ]
+    ]
+  }
+]
