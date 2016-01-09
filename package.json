@@ -15,5 +15,8 @@
   "dependencies": {
     "extra": "file:extra"
   },
+  "bundledDependencies": [
+    "extra"
+  ],
   "private": true
 }
