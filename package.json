@@ -7,7 +7,7 @@
   "activationCommands": {
     "atom-workspace": "syntax-scope-inspector:toggle"
   },
-  "repository": "zertosh/syntax-scope-inspector",
+  "repository": "https://github.com/zertosh/syntax-scope-inspector",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
