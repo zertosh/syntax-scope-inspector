@@ -1,10 +1,9 @@
 {
   "name": "syntax-scope-inspector",
   "main": "./lib/syntax-scope-inspector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A short description of your package",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
     "atom-workspace": "syntax-scope-inspector:toggle"
   },
@@ -13,7 +12,6 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "private": true
 }
