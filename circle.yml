@@ -6,6 +6,7 @@ test:
   override:
     - echo $PATH
     - env
+    - printenv
 
 experimental:
   notify:
