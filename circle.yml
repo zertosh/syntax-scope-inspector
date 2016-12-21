@@ -4,14 +4,10 @@ machine:
 
 test:
   override:
-    - >
+    - |
+      # no test
       if [ -z "$CIRCLE_TAG" ]; then
-        # comment 1
-        echo "bar"
-        env
-      else
-        # comment 2
-        echo "foo"
+        echo "hello"
       fi
 
 deployment:
@@ -19,7 +15,16 @@ deployment:
     tag: /^v\d+\.\d+\.\d+$/
     owner: zertosh
     commands:
-      - env
+      - |
+        PACKAGE_VERSION="$(node -p 'require("./package.json").version')"
+        echo $PACKAGE_VERSION
+        echo $CIRCLE_TAG
+        if [ "$CIRCLE_TAG" == "v${PACKAGE_VERSION}" ]; then
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          npm publish
+        else
+          exit 1
+        fi;
 
 experimental:
   notify:
