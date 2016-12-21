@@ -1,3 +1,5 @@
+test 2
+
 # syntax-scope-inspector package
 
 A short description of your package.
