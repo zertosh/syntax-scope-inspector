@@ -4,7 +4,8 @@ machine:
 
 test:
   override:
-    - if [ -z "$CIRCLE_TAG" ]; then
+    - >
+      if [ -z "$CIRCLE_TAG" ]; then
         echo "bar"
         env
       else
