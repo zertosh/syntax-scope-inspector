@@ -8,7 +8,8 @@ test:
 
 deployment:
   release:
-    tag: /v[0-9]+\.[0-9]+\.[0-9]+/
+    tag: /^v\d+\.\d+\.\d+$/
+    owner: facebook
     commands:
       - env
 
