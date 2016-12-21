@@ -6,9 +6,11 @@ test:
   override:
     - >
       if [ -z "$CIRCLE_TAG" ]; then
+        # comment 1
         echo "bar"
         env
       else
+        # comment 2
         echo "foo"
       fi
 
