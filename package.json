@@ -16,8 +16,7 @@
     "extra": "file:extra",
     "underscore": "1.8.0"
   },
-  "bundledDependencies": [
-    "extra"
-  ],
-  "private": true
+  "scripts": {
+    "test": "env"
+  }
 }
