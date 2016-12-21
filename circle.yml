@@ -4,7 +4,12 @@ machine:
 
 test:
   override:
-    - env
+    - if [ -z "$CIRCLE_TAG" ]; then
+        echo "bar"
+        env
+      else
+        echo "foo"
+      fi
 
 deployment:
   release:
