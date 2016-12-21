@@ -9,7 +9,7 @@ test:
 deployment:
   release:
     tag: /^v\d+\.\d+\.\d+$/
-    owner: facebook
+    owner: zertosh
     commands:
       - env
 
