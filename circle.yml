@@ -4,8 +4,13 @@ machine:
 
 test:
   override:
-    - echo $PATH
     - env
+
+deployment:
+  release:
+    tag: /^v\d+\.\d+\.\d+$/
+    commands:
+      - env
 
 experimental:
   notify:
