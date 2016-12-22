@@ -18,6 +18,11 @@ if [[ ! -z "$CI" ]]; then
     exit 1
   fi
 
+  if [[ -z "$ATOM_ACCESS_TOKEN" ]]; then
+    echo "\$ATOM_ACCESS_TOKEN is not set."
+    exit 1
+  fi
+
   # This info isn't set in CircleCI
   git config --get user.email || git config user.email "zertosh@gmail.com"
   git config --get user.name || git config user.name "Andres Suarez"
@@ -30,7 +35,7 @@ if [[ ! -z "$CI" ]]; then
       -H 'Accept: application/octet-stream' \
       -o "atom-amd64.deb"
     sudo dpkg --install atom-amd64.deb || true
-    sudo apt-get update
+    sudo apt-get update >/dev/null
     sudo apt-get -f install
     sudo rm atom-amd64.deb
   else
@@ -62,6 +67,6 @@ EOF
 git tag "${VERSION}"
 git push origin "${VERSION}"
 
-apm publish --tag "${VERSION}"
-
 npm publish
+
+apm publish --tag "${VERSION}"
