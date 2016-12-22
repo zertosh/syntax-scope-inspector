@@ -30,12 +30,9 @@ if [[ ! -z "$CI" ]]; then
       -H 'Accept: application/octet-stream' \
       -o "atom-amd64.deb"
     sudo dpkg --install atom-amd64.deb || true
-    sudo rm atom-amd64.deb
-    sudo apt-get update
+    sudo apt-get update >/dev/null
     sudo apt-get -f install
-    export ATOM_SCRIPT_PATH="atom"
-    export APM_SCRIPT_PATH="apm"
-    export NPM_SCRIPT_PATH="/usr/share/atom/resources/app/apm/node_modules/.bin/npm"
+    sudo rm atom-amd64.deb
   else
     echo "Unknown CI environment, exiting!"
     exit 1
