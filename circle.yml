@@ -12,7 +12,7 @@ test:
 
 deployment:
   release:
-    branch: /^release-nuclide-v[0-9]+\.[0-9]+\.[0-9]+$/
+    branch: /^release-v[0-9]+\.[0-9]+\.[0-9]+$/
     owner: zertosh
     commands:
       - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc

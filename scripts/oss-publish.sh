@@ -4,7 +4,7 @@
 set -e
 
 THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VERSION="$(node -p 'require("./package.json").version')"
+VERSION="v$(node -p 'require("./package.json").version')"
 
 # When running in CircleCI, verify that the release branch matches the package
 # version, and download apm.
@@ -12,8 +12,9 @@ VERSION="$(node -p 'require("./package.json").version')"
 if [[ ! -z "$CI" ]]; then
   echo "Building branch:"
   echo "$CIRCLE_BRANCH"
-  if [[ "$CIRCLE_BRANCH" != "release-nuclide-v${VERSION}" ]]; then
-    echo "Expected build branch to be \"release-nuclide-v${VERSION}\"."
+
+  if [[ "$CIRCLE_BRANCH" != "release-${VERSION}" ]]; then
+    echo "Expected build branch to be \"release-${VERSION}\"."
     exit 1
   fi
 
@@ -42,12 +43,13 @@ atom -v
 echo "Using APM version:"
 apm -v
 
+# Force a detached HEAD
+git checkout $(git rev-parse HEAD)
+
 # "$THIS_DIR/scripts/release-generate-proxies.js" --save
 # "$THIS_DIR/scripts/release-transpile.js" --overwrite
 # "$THIS_DIR/scripts/prepare-apm-release.js"
-
-# Force a detached HEAD
-git checkout $(git rev-parse HEAD)
+date > date.txt
 
 git ls-files --ignored --exclude-standard -z | xargs -0 git rm --cached
 git add -A && git commit -F- <<EOF
