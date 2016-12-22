@@ -30,7 +30,7 @@ if [[ ! -z "$CI" ]]; then
       -H 'Accept: application/octet-stream' \
       -o "atom-amd64.deb"
     sudo dpkg --install atom-amd64.deb || true
-    sudo apt-get update >/dev/null
+    sudo apt-get update
     sudo apt-get -f install
     sudo rm atom-amd64.deb
   else
@@ -62,6 +62,6 @@ EOF
 git tag "${VERSION}"
 git push origin "${VERSION}"
 
-npm publish
-
 apm publish --tag "${VERSION}"
+
+npm publish
