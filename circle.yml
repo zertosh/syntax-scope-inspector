@@ -12,19 +12,11 @@ test:
 
 deployment:
   release:
-    tag: /^v\d+\.\d+\.\d+$/
+    branch: /^release-nuclide-v[0-9]+\.[0-9]+\.[0-9]+$/
     owner: zertosh
     commands:
-      - |
-        PACKAGE_VERSION="$(node -p 'require("./package.json").version')"
-        echo $PACKAGE_VERSION
-        echo $CIRCLE_TAG
-        if [ "$CIRCLE_TAG" == "v${PACKAGE_VERSION}" ]; then
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          npm publish
-        else
-          exit 1
-        fi;
+      - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      - ./scripts/oss-publish.sh
 
 experimental:
   notify:
