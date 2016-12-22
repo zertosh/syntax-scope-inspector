@@ -18,6 +18,10 @@ if [[ ! -z "$CI" ]]; then
     exit 1
   fi
 
+  # This info isn't set in CircleCI
+  git config --get user.email || git config user.email "zertosh@gmail.com"
+  git config --get user.name || git config user.name "Andres Suarez"
+
   # Excerpts from https://github.com/atom/ci/blob/5587d0e/build-package.sh
   echo "Downloading latest Atom release..."
   ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
