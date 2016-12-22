@@ -1,24 +1,38 @@
 #!/bin/bash
 
-# set -x
+# Copyright (c) 2015-present, Facebook, Inc.
+# All rights reserved.
+#
+# This source code is licensed under the license found in the LICENSE file in
+# the root directory of this source tree.
+
 set -e
 
 THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VERSION="v$(node -p 'require("./package.json").version')"
 
-# When running in CircleCI, verify that the release branch matches the package
-# version, and download apm.
-
+# When running in CircleCI:
+#   * Verify that the release branch matches the `package.json` version.
+#   * Check that `$ATOM_ACCESS_TOKEN` is set (used by `apm publish`).
+#   * Check that `$NPM_TOKEN` is set (saved to ~/.npmrc for `npm publish`).
+#   * Download and install atom/apm.
 if [[ ! -z "$CI" ]]; then
   echo "Building branch:"
-  echo "$CIRCLE_BRANCH"
+  echo "${CIRCLE_BRANCH}"
 
-  if [[ "$CIRCLE_BRANCH" != "release-${VERSION}" ]]; then
+  if [[ "${CIRCLE_BRANCH}" != "release-${VERSION}" ]]; then
     echo "Expected build branch to be \"release-${VERSION}\"."
     exit 1
   fi
 
-  if [[ -z "$ATOM_ACCESS_TOKEN" ]]; then
+  if [[ -z "${NPM_TOKEN}" ]]; then
+    echo "\$NPM_TOKEN is not set."
+    exit 1
+  else
+    echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+  fi
+
+  if [[ -z "${ATOM_ACCESS_TOKEN}" ]]; then
     echo "\$ATOM_ACCESS_TOKEN is not set."
     exit 1
   fi
@@ -49,13 +63,29 @@ atom -v
 echo "Using APM version:"
 apm -v
 
+if ! apm stars >/dev/null; then
+  echo "Not logged in to apm."
+  exit 1
+fi
+if ! npm whoami >/dev/null; then
+  echo "Not logged in to npm."
+  exit 1
+fi
+if ! git config --get user.email >/dev/null; then
+  echo "Git \"user.email\" not set."
+  exit 1
+fi
+if ! git config --get user.name >/dev/null; then
+  echo "Git \"user.name\" not set."
+  exit 1
+fi
+
 # Force a detached HEAD
 git checkout $(git rev-parse HEAD)
 
 # "$THIS_DIR/scripts/release-generate-proxies.js" --save
 # "$THIS_DIR/scripts/release-transpile.js" --overwrite
 # "$THIS_DIR/scripts/prepare-apm-release.js"
-date > date.txt
 
 git ls-files --ignored --exclude-standard -z | xargs -0 git rm --cached
 git add -A && git commit -F- <<EOF

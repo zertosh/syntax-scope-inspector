@@ -15,7 +15,6 @@ deployment:
     branch: /^release-v[0-9]+\.[0-9]+\.[0-9]+$/
     owner: zertosh
     commands:
-      - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
       - ./scripts/oss-publish.sh
 
 experimental:
