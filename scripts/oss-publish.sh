@@ -24,13 +24,13 @@ if [[ ! -z "$CI" ]]; then
 
   # Excerpts from https://github.com/atom/ci/blob/5587d0e/build-package.sh
   echo "Downloading latest Atom release..."
-  ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
-
   if [ "${CIRCLECI}" = "true" ]; then
+    ATOM_CHANNEL="${ATOM_CHANNEL:=stable}"
     curl -s -L "https://atom.io/download/deb?channel=${ATOM_CHANNEL}" \
       -H 'Accept: application/octet-stream' \
       -o "atom-amd64.deb"
     sudo dpkg --install atom-amd64.deb || true
+    sudo rm atom-amd64.deb
     sudo apt-get update
     sudo apt-get -f install
     export ATOM_SCRIPT_PATH="atom"
