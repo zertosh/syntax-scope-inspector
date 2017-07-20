@@ -98,6 +98,8 @@ EOF
 git tag "${VERSION}"
 git push origin "${VERSION}"
 
+echo "Publishing to npm"
 npm publish
 
+echo "Publishing to apm"
 apm publish --tag "${VERSION}"
