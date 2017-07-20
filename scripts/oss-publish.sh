@@ -30,6 +30,7 @@ if [[ ! -z "$CI" ]]; then
     exit 1
   else
     echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+    unset NPM_TOKEN
   fi
 
   if [[ -z "${ATOM_ACCESS_TOKEN}" ]]; then
@@ -81,11 +82,11 @@ if ! git config --get user.name >/dev/null; then
 fi
 
 # Force a detached HEAD
-git checkout $(git rev-parse HEAD)
+git checkout "$(git rev-parse HEAD)"
 
-# "$THIS_DIR/scripts/release-generate-proxies.js" --save
-# "$THIS_DIR/scripts/release-transpile.js" --overwrite
-# "$THIS_DIR/scripts/prepare-apm-release.js"
+# "$THIS_DIR/../scripts/release-generate-proxies.js" --save
+# "$THIS_DIR/../scripts/release-transpile.js" --overwrite
+# "$THIS_DIR/../scripts/prepare-apm-release.js"
 
 git ls-files --ignored --exclude-standard -z | xargs -0 git rm --cached
 git add -A && git commit -F- <<EOF
