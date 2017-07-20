@@ -25,13 +25,13 @@ if [[ ! -z "$CI" ]]; then
     exit 1
   fi
 
-  if [[ -z "${NPM_TOKEN}" ]]; then
-    echo "\$NPM_TOKEN is not set."
-    exit 1
-  else
-    echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-    unset NPM_TOKEN
-  fi
+  # if [[ -z "${NPM_TOKEN}" ]]; then
+  #   echo "\$NPM_TOKEN is not set."
+  #   exit 1
+  # else
+  #   echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+  #   unset NPM_TOKEN
+  # fi
 
   if [[ -z "${ATOM_ACCESS_TOKEN}" ]]; then
     echo "\$ATOM_ACCESS_TOKEN is not set."
@@ -68,10 +68,10 @@ if ! apm stars >/dev/null; then
   echo "Not logged in to apm."
   exit 1
 fi
-if ! npm whoami >/dev/null; then
-  echo "Not logged in to npm."
-  exit 1
-fi
+# if ! npm whoami >/dev/null; then
+#   echo "Not logged in to npm."
+#   exit 1
+# fi
 if ! git config --get user.email >/dev/null; then
   echo "Git \"user.email\" not set."
   exit 1
@@ -98,8 +98,8 @@ EOF
 git tag "${VERSION}"
 git push origin "${VERSION}"
 
-echo "Publishing to npm"
-npm publish
+# echo "Publishing to npm"
+# npm publish
 
 echo "Publishing to apm"
 apm publish --tag "${VERSION}"
