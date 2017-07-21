@@ -1,7 +1,7 @@
 {
   "name": "syntax-scope-inspector",
   "main": "./lib/syntax-scope-inspector",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "description": "A short description of your package",
   "keywords": [],
   "activationCommands": {
